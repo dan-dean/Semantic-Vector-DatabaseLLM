@@ -27,44 +27,68 @@ const Query = () => {
 			setProgressMessage("Sending request...");
 
 			try {
-				const response = await fetch("http://localhost:0000", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ query: userInput }),
-				});
+				const response = await fetch(
+					"http://hour-furnishings.gl.at.ply.gg:32628/query",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ query: userInput }),
+					}
+				);
 
-				if (!response.ok) {
+				if (response.status === 503) {
+					throw new Error("Server busy");
+				} else if (!response.ok) {
 					throw new Error("Server error");
 				}
 
-				const eventSource = new EventSource("http://localhost:0000/status");
+				const responseData = await response.json();
 
-				eventSource.onmessage = (event) => {
-					const data = JSON.parse(event.data);
-					setProgressMessage(data.message);
-
-					if (data.final) {
-						eventSource.close();
-						setIsInputDisabled(false);
-						setResponse(data.result); // Assuming the final message contains the result
-					}
-				};
-
-				eventSource.onerror = () => {
-					setErrorMsg(
-						"Server is offline or the connection attempt was unsuccessful"
+				if (responseData.result === "Query Recieved") {
+					const eventSource = new EventSource(
+						"http://hour-furnishings.gl.at.ply.gg:32628/status"
 					);
+
+					eventSource.onmessage = (event) => {
+						const data = JSON.parse(event.data);
+						console.log(data);
+						setProgressMessage(data.message);
+
+						if (data.final) {
+							setProgressMessage("");
+							eventSource.close();
+							setIsInputDisabled(false);
+							setResponse(data.result); // Assuming the final message contains the result
+						}
+					};
+
+					eventSource.onerror = () => {
+						setErrorMsg(
+							"Server is offline or the connection attempt was unsuccessful"
+						);
+						setProgressMessage("");
+						setIsInputDisabled(false);
+						eventSource.close();
+					};
+				} else {
 					setProgressMessage("");
 					setIsInputDisabled(false);
-					eventSource.close();
-				};
+					setResponse(
+						"Server responded with unknown or unhandled message. Sorry"
+					);
+				}
 			} catch (error) {
-				//console.error("Error establishing connection to the server:", error);
-				setErrorMsg(
-					"Error connecting to the server. Please check if the server is running or try again later"
-				);
+				if (error.message === "Server busy") {
+					setErrorMsg(
+						"Server is busy handling another request. Try again soon"
+					);
+				} else {
+					setErrorMsg(
+						"Error connecting to the server. Please check if the server is running or try again later"
+					);
+				}
 				setProgressMessage("");
 				setIsInputDisabled(false);
 			}
