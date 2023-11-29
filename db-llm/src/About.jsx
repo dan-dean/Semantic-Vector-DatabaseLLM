@@ -3,12 +3,17 @@ const About = () => {
 		<div>
 			<h1>About This System</h1>
 			<p>
-				This system is a designed to leverage the power of vector search and
-				language models for efficient and accurate scriptural reference
-				retrieval. The website component provides a front-facing UI for query
-				submission and response delivery, while a Flask python server
-				coordinates the API calls to the local Marqo instance and the LLM Studio
-				instance.
+				The problem meant to be solved here is the large context size of the
+				text, which would require enormous amounts of RAM to load into any model
+				even capable of supporting it, which most cannot. I leverage a vector
+				database that is able to understand semantic meaning and relevancy
+				between documents, where I can query into the database and retrieve
+				relevant context to help answer a user's query. This smaller context can
+				then be baked into a prompt to a small and efficient LLM, allowing us to
+				get relevant and concise responses to queries. The website component
+				provides a front-facing UI for query submission and response delivery,
+				while a Flask python server coordinates the API calls to the local Marqo
+				instance and the LLM Studio instance.
 			</p>
 			<p>
 				<strong>Vector Search with Marqo:</strong> Utilizing{" "}
@@ -54,13 +59,26 @@ const About = () => {
 				improves the accuracy and relevance of the generated content, reducing
 				the likelihood of erroneous or misleading information.
 			</p>
-			<p>
-				This blend of technologies, from the React-based frontend to the
-				sophisticated backend leveraging Marqo and LM Studio, creates a robust
-				platform capable of handling complex queries with high precision and
-				reliability.
-			</p>
-			{/* Add more content as needed */}
+			<ul>
+				<li>
+					<a
+						href="https://github.com/marqo-ai/marqo"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Marqo on GitHub
+					</a>
+				</li>
+				<li>
+					<a
+						href="https://github.com/lmstudio-ai"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						LM Studio on GitHub
+					</a>
+				</li>
+			</ul>
 		</div>
 	);
 };
