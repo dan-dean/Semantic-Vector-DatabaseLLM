@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Query = () => {
 	const [userInput, setUserInput] = useState("");
@@ -7,6 +9,7 @@ const Query = () => {
 	const [progressMessage, setProgressMessage] = useState("");
 
 	const [isInputDisabled, setIsInputDisabled] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const MAX_CHARS = 200;
 
@@ -24,6 +27,7 @@ const Query = () => {
 			setErrorMsg("");
 			setResponse("");
 			setIsInputDisabled(true);
+			setIsLoading(true);
 			setProgressMessage("Sending request...");
 
 			try {
@@ -58,6 +62,7 @@ const Query = () => {
 
 						if (data.final) {
 							setProgressMessage("");
+							setIsLoading(false);
 							eventSource.close();
 							setIsInputDisabled(false);
 							setResponse(data.result); // Assuming the final message contains the result
@@ -69,12 +74,14 @@ const Query = () => {
 							"Server is offline or the connection attempt was unsuccessful"
 						);
 						setProgressMessage("");
+						setIsLoading(false);
 						setIsInputDisabled(false);
 						eventSource.close();
 					};
 				} else {
 					setProgressMessage("");
 					setIsInputDisabled(false);
+					setIsLoading(false);
 					setResponse(
 						"Server responded with unknown or unhandled message. Sorry"
 					);
@@ -90,6 +97,7 @@ const Query = () => {
 					);
 				}
 				setProgressMessage("");
+				setIsLoading(false);
 				setIsInputDisabled(false);
 			}
 		}
@@ -116,7 +124,14 @@ const Query = () => {
 			{progressMessage && <p>{progressMessage}</p>}
 			<div>
 				<h2>Response:</h2>
-				<p>{response}</p>
+				{isLoading ? (
+					<div style={{ textAlign: "center", margin: "20px" }}>
+						<ClipLoader size={50} color={"#123abc"} />
+						{/* Adjust size and color as needed */}
+					</div>
+				) : (
+					<ReactMarkdown>{response}</ReactMarkdown>
+				)}
 			</div>
 		</div>
 	);
