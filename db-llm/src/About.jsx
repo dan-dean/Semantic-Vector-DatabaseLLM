@@ -1,7 +1,7 @@
 const About = () => {
 	return (
 		<div>
-			<h1>About This System</h1>
+			<h1>About This Project</h1>
 			<p>
 				I've loaded the entire text of the Book of Mormon into a vector database
 				so that users may ask questions directly to the text. The problem meant

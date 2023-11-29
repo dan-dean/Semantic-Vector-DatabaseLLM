@@ -2,6 +2,45 @@ import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ClipLoader from "react-spinners/ClipLoader";
 
+const splashTexts = [
+	"Computing the secrets of the universe...",
+	"Assembling the bits of wisdom...",
+	"Translating ancient records...",
+	"Seeking wisdom from Lehi’s dream...",
+	"Gathering manna for thought...",
+	"Unearthing plates of knowledge...",
+	"Consulting the Liahona of learning...",
+	"Exploring Moroni’s messages...",
+	"Navigating Nephi’s ship of wisdom...",
+	"Discovering hidden truths in the Jaredite barges...",
+	"Mining gems from the Tree of Life...",
+	"Sifting through the sands of the Promised Land...",
+	"Charting paths through Mormon’s writings...",
+	"Gleaning guidance from the Brother of Jared...",
+	"Interpreting the stars of the Nephite sky...",
+	"Divining insights from the Waters of Mormon...",
+	"Pondering with King Lamoni...",
+	"Aligning with the stars of Kolob...",
+	"Consulting with the prophets of old...",
+	"Gathering manna of wisdom...",
+	"Seeking counsel from the tower of Babel...",
+	"Harvesting words from the Tree of Life...",
+	"Tracing the footsteps of Moroni’s travels...",
+	"Connecting with the armies of Helaman...",
+	"Receiving revelation from the Urim and Thummim...",
+	"Crossing the wilderness of faith...",
+	"Illuminating truths from the Liahona...",
+	"Channeling insights from the Seer Stone...",
+	"Visualizing Nephi’s visions...",
+	"Rekindling the faith of the Zoramites...",
+	"Navigating through the Nephite-Lamanite wars...",
+	"Assembling the clues from the brass plates...",
+	"Embarking on a journey with the Jaredites...",
+	"Sailing the seas with the brother of Jared...",
+	"Traversing the narrow path to enlightenment...",
+	"Discovering the treasures of Cumorah...",
+];
+
 const Query = () => {
 	const [userInput, setUserInput] = useState("");
 	const [response, setResponse] = useState("");
@@ -57,8 +96,11 @@ const Query = () => {
 
 					eventSource.onmessage = (event) => {
 						const data = JSON.parse(event.data);
-						console.log(data);
-						setProgressMessage(data.message);
+						console.log(data.message);
+
+						const randomSplashText =
+							splashTexts[Math.floor(Math.random() * splashTexts.length)];
+						setProgressMessage(randomSplashText);
 
 						if (data.final) {
 							setProgressMessage("");
