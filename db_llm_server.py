@@ -84,8 +84,9 @@ def process_query(query):
         if response:
             #final response
             sanitized_response = extract_content(response)
+            final_response = sanitized_response + "\n\nReferences:\n" + context_string
             print(sanitized_response)
-            message_queue.put(json.dumps({'message': 'Process complete!', 'result': sanitized_response, 'final': True}))
+            message_queue.put(json.dumps({'message': 'Process complete!', 'result': final_response, 'final': True}))
         else:
             message_queue.put(json.dumps({'message': 'Process complete!', 'result': "LLM generation failed. May be offline", 'final': True}))
 
