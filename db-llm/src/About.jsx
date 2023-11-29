@@ -3,16 +3,18 @@ const About = () => {
 		<div>
 			<h1>About This System</h1>
 			<p>
-				The problem meant to be solved here is the large context size of the
-				text, which would require enormous amounts of RAM to load into any model
-				even capable of supporting it, which most cannot. I leverage a vector
-				database that is able to understand semantic meaning and relevancy
-				between documents, where I can query into the database and retrieve
-				relevant context to help answer a user's query. This smaller context can
-				then be baked into a prompt to a small and efficient LLM, allowing us to
-				get relevant and concise responses to queries. The website component
-				provides a front-facing UI for query submission and response delivery,
-				while a Flask python server coordinates the API calls to the local Marqo
+				I've loaded the entire text of the Book of Mormon into a vector database
+				so that users may ask questions directly to the text. The problem meant
+				to be solved here is the large context size of the text, which would
+				require enormous amounts of RAM to load into any model even capable of
+				supporting it, which most cannot. I leverage a vector database that is
+				able to understand semantic meaning and relevancy between documents,
+				where I can query into the database and retrieve relevant context to
+				help answer a user's query. This smaller context can then be baked into
+				a prompt to a small and efficient LLM, allowing us to get relevant and
+				concise responses to queries. The website component provides a
+				front-facing UI for query submission and response delivery, while a
+				Flask python server coordinates the API calls to the local Marqo
 				instance and the LLM Studio instance.
 			</p>
 			<p>
@@ -43,7 +45,8 @@ const About = () => {
 				adept at generating responses based on textual context, significantly
 				reducing instances of hallucination and enhancing generation quality.
 				Providing rich, relevant context to these models is key to achieving
-				accurate and meaningful outputs.
+				accurate and meaningful outputs. Clever prompting is also utilized to
+				set up the LLM to respond spiritually and accurately.
 			</p>
 			<p>
 				<strong>Frontend Technology:</strong> The user interface of this system

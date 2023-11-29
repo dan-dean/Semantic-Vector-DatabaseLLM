@@ -105,7 +105,7 @@ const Query = () => {
 
 	return (
 		<div>
-			<h1>LLM Database Query Interface</h1>
+			<h1>Book of Mormon Database LLM</h1>
 			<textarea
 				value={userInput}
 				onChange={handleInputChange}
