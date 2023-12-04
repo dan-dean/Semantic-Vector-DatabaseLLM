@@ -71,7 +71,7 @@ const Query = () => {
 
 			try {
 				const response = await fetch(
-					"http://hour-furnishings.gl.at.ply.gg:32628/query",
+					"https://chatbomproxy.excursionsxr.world/query",
 					{
 						method: "POST",
 						headers: {
@@ -91,7 +91,7 @@ const Query = () => {
 
 				if (responseData.result === "Query Recieved") {
 					const eventSource = new EventSource(
-						"http://hour-furnishings.gl.at.ply.gg:32628/status"
+						"https://chatbomproxy.excursionsxr.world/status"
 					);
 
 					eventSource.onmessage = (event) => {
@@ -147,7 +147,8 @@ const Query = () => {
 
 	return (
 		<div>
-			<h1>Book of Mormon Database LLM</h1>
+			<h1>ChatBoM</h1>
+			<h2>Book of Mormon Database LLM</h2>
 			<textarea
 				value={userInput}
 				onChange={handleInputChange}
